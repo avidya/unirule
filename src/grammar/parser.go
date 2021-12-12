@@ -16,7 +16,7 @@ import "fmt"
  * and
  *   : DIGIT
  *   | '!'? factor
- *   | '(' expression ')'
+ *   | '(' expr ')'
  * ;
  *
  * DIGIT
