@@ -2,7 +2,7 @@
 
 unirule is a logical expression parser & evaluation tool written in Go.
 
-a logical expression is composed of a couple of operands, which should always be a valid boolean value,(either `true` or `false`), as well as logical operator: `&`, `|`, `!`, which concat those operands. pairs of parenthose `(` and `)` are also valid. 
+a logical expression is composed of a couple of operands, which should always be a valid boolean value,(either `true` or `false`), as well as logical operator: `&`, `|`, `!`, which concat those operands. pairs of parentheses `(` and `)` are also valid. 
 
 usage:
 ```Go
