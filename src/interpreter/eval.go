@@ -10,8 +10,8 @@ type EvalVisitor struct {
 }
 
 func (v *EvalVisitor) VisitAnd(and *grammar.And) {
-	v.visit(and.Operands[0])
-	v.visit(and.Operands[1])
+	and.Operands[0].Accept(v)
+	and.Operands[1].Accept(v)
 	op1 := v.stack[len(v.stack)-2]
 	op2 := v.stack[len(v.stack)-1]
 	v.stack = append(v.stack[:len(v.stack)-2], op1 && op2)
@@ -19,34 +19,21 @@ func (v *EvalVisitor) VisitAnd(and *grammar.And) {
 }
 
 func (v *EvalVisitor) VisitOr(or *grammar.Or) {
-	v.visit(or.Operands[0])
-	v.visit(or.Operands[1])
+	or.Operands[0].Accept(v)
+	or.Operands[1].Accept(v)
 	op1 := v.stack[len(v.stack)-2]
 	op2 := v.stack[len(v.stack)-1]
 	v.stack = append(v.stack[:len(v.stack)-2], op1 || op2)
 }
 
 func (v *EvalVisitor) VisitNot(not *grammar.Not) {
-	v.visit(not.Operand)
+	not.Operand.Accept(v)
 	op := v.stack[len(v.stack)-1]
 	v.stack = append(v.stack[:len(v.stack)-1], !op)
 }
 
 func (v *EvalVisitor) VisitLiteral(l *grammar.Literal) {
 	v.stack = append(v.stack, v.Data[l.Value])
-}
-
-func (v *EvalVisitor) visit(expr grammar.Expr) {
-	switch expr.(type) {
-	case *grammar.Or:
-		v.VisitOr(expr.(*grammar.Or))
-	case *grammar.And:
-		v.VisitAnd(expr.(*grammar.And))
-	case *grammar.Not:
-		v.VisitNot(expr.(*grammar.Not))
-	case *grammar.Literal:
-		v.VisitLiteral(expr.(*grammar.Literal))
-	}
 }
 
 func (v *EvalVisitor) Result() bool {
