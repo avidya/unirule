@@ -27,7 +27,7 @@ func TestEvalAnd(t *testing.T) {
 }
 
 func TestEvalReal_1(t *testing.T) {
-	expr := grammar.Parse("(1|!2)  &3&！ 4& 5  & !（!6|7|8)")
+	expr := grammar.Parse("(1|!2) &3& !4& 5  & !（!6|7|8)")
 	eval := &interpreter.EvalVisitor{
 		Data: map[string]bool{
 			"1": true,
@@ -41,8 +41,7 @@ func TestEvalReal_1(t *testing.T) {
 		},
 	}
 	expr.Accept(eval)
-	assert := assert.New(t)
-	assert.True(!eval.Result())
+	assert.New(t).True(eval.Result() == false)
 }
 
 func TestEvalReal_2(t *testing.T) {
