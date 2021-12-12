@@ -28,8 +28,8 @@ func (v *EvalVisitor) VisitOr(or *grammar.Or) {
 
 func (v *EvalVisitor) VisitNot(not *grammar.Not) {
 	v.visit(not.Operand)
-	n := !v.stack[len(v.stack)-1]
-	v.stack = append(v.stack[:len(v.stack)-1], n)
+	op := v.stack[len(v.stack)-1]
+	v.stack = append(v.stack[:len(v.stack)-1], !op)
 }
 
 func (v *EvalVisitor) VisitLiteral(l *grammar.Literal) {
