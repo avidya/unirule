@@ -16,6 +16,8 @@ type And struct {
 }
 
 func (and *And) Accept(visitor ExprVisitor) {
+	and.Operands[0].Accept(visitor)
+	and.Operands[1].Accept(visitor)
 	visitor.VisitAnd(and)
 }
 
@@ -24,6 +26,8 @@ type Or struct {
 }
 
 func (or *Or) Accept(visitor ExprVisitor) {
+	or.Operands[0].Accept(visitor)
+	or.Operands[1].Accept(visitor)
 	visitor.VisitOr(or)
 }
 
@@ -32,6 +36,7 @@ type Not struct {
 }
 
 func (not *Not) Accept(visitor ExprVisitor) {
+	not.Operand.Accept(visitor)
 	visitor.VisitNot(not)
 }
 
