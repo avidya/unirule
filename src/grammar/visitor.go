@@ -16,8 +16,9 @@ type And struct {
 }
 
 func (and *And) Accept(visitor ExprVisitor) {
-	and.Operands[0].Accept(visitor)
-	and.Operands[1].Accept(visitor)
+	for _, operand := range and.Operands {
+		operand.Accept(visitor)
+	}
 	visitor.VisitAnd(and)
 }
 
@@ -26,8 +27,9 @@ type Or struct {
 }
 
 func (or *Or) Accept(visitor ExprVisitor) {
-	or.Operands[0].Accept(visitor)
-	or.Operands[1].Accept(visitor)
+	for _, operand := range or.Operands {
+		operand.Accept(visitor)
+	}
 	visitor.VisitOr(or)
 }
 
