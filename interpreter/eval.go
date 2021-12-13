@@ -1,7 +1,7 @@
 package interpreter
 
 import (
-	"unirule/grammar"
+	"github.com/avidya/unirule/grammar"
 )
 
 type EvalVisitor struct {

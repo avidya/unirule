@@ -1,9 +1,9 @@
 package tests
 
 import (
+	"github.com/avidya/unirule/grammar"
 	"github.com/stretchr/testify/assert"
 	"testing"
-	"unirule/grammar"
 )
 
 func TestParseReal(t *testing.T) {

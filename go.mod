@@ -1,4 +1,4 @@
-module unirule
+module github.com/avidya/unirule
 
 go 1.14
 

@@ -1,10 +1,10 @@
 package tests
 
 import (
+	"github.com/avidya/unirule/grammar"
+	"github.com/avidya/unirule/interpreter"
 	"github.com/stretchr/testify/assert"
 	"testing"
-	"unirule/grammar"
-	"unirule/interpreter"
 )
 
 func TestEvalAnd(t *testing.T) {
