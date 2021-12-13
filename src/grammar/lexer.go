@@ -35,7 +35,7 @@ func (ctx *AnalysisContext) nextToken() int {
 	}
 }
 
-func (ctx *AnalysisContext) consecutiveDigitStr() string {
+func (ctx *AnalysisContext) scanDigit() string {
 	var l []rune
 	for ; unicode.IsDigit(ctx.currentChar); ctx.consume() {
 		l = append(l, ctx.currentChar)

@@ -69,7 +69,7 @@ func (ctx *AnalysisContext) or() {
 func (ctx *AnalysisContext) and() {
 	switch ctx.nextToken() {
 	case DIGIT:
-		ctx.current = &Literal{ctx.consecutiveDigitStr()}
+		ctx.current = &Literal{ctx.scanDigit()}
 	case EXLAMATION:
 		ctx.match(EXLAMATION)
 		ex := &Not{}
