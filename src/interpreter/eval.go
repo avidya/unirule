@@ -9,20 +9,20 @@ type EvalVisitor struct {
 	stack []bool
 }
 
-func (v *EvalVisitor) VisitAnd(and *grammar.And) {
+func (v *EvalVisitor) VisitAnd(_ *grammar.And) {
 	op1 := v.stack[len(v.stack)-2]
 	op2 := v.stack[len(v.stack)-1]
 	v.stack = append(v.stack[:len(v.stack)-2], op1 && op2)
 
 }
 
-func (v *EvalVisitor) VisitOr(or *grammar.Or) {
+func (v *EvalVisitor) VisitOr(_ *grammar.Or) {
 	op1 := v.stack[len(v.stack)-2]
 	op2 := v.stack[len(v.stack)-1]
 	v.stack = append(v.stack[:len(v.stack)-2], op1 || op2)
 }
 
-func (v *EvalVisitor) VisitNot(not *grammar.Not) {
+func (v *EvalVisitor) VisitNot(_ *grammar.Not) {
 	op := v.stack[len(v.stack)-1]
 	v.stack = append(v.stack[:len(v.stack)-1], !op)
 }
