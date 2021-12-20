@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"fmt"
 	"github.com/avidya/unirule/grammar"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -25,3 +26,12 @@ func TestParseReal(t *testing.T) {
 		assert.True(false)
 	}
 }
+
+func TestToString(t *testing.T) {
+	s := grammar.ToString{}
+	expr := grammar.Parse("(1|!2) &3& !4& 5  & !（!6|7|8)")
+	expr.Accept(&s)
+	fmt.Printf("original shape: %s\n", s.String())
+	assert.New(t).True(s.String() == "(and (and (and (and (or 1 (not 2)) 3) (not 4)) 5) (not (or (or (not 6) 7) 8)))")
+}
+
