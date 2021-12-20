@@ -1,5 +1,10 @@
 package grammar
 
+import (
+	"fmt"
+	"strings"
+)
+
 type Expr interface {
 	Accept(visitor ExprVisitor)
 }
@@ -48,4 +53,30 @@ type Literal struct {
 
 func (l *Literal) Accept(visitor ExprVisitor) {
 	visitor.VisitLiteral(l)
+}
+
+type ToString struct {
+	content []string
+}
+
+func (t *ToString) VisitAnd(and *And) {
+	orString := strings.Join(t.content[len(t.content)-len(and.Operands):], " ")
+	t.content = append(t.content[:len(t.content)-len(and.Operands)], fmt.Sprintf("(and %s)", orString))
+}
+
+func (t *ToString) VisitOr(or *Or) {
+	orString := strings.Join(t.content[len(t.content)-len(or.Operands):], " ")
+	t.content = append(t.content[:len(t.content)-len(or.Operands)], fmt.Sprintf("(or %s)", orString))
+}
+
+func (t *ToString) VisitNot(_ *Not) {
+	t.content = append(t.content[:len(t.content)-1], fmt.Sprintf("(not %s)", t.content[len(t.content)-1]))
+}
+
+func (t *ToString) VisitLiteral(literal *Literal) {
+	t.content = append(t.content, literal.Value)
+}
+
+func (t *ToString) String() string {
+	return t.content[len(t.content)-1]
 }
